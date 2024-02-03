@@ -3,7 +3,7 @@ import { useToken } from "./context";
 import { useRestoreSession } from "./hooks";
 import { ServerPage, SignInPage } from "./pages";
 
-function RequireAuth({ children }: { children: JSX.Element }) {
+const RequireAuth = ({ children }: { children: JSX.Element }) => {
   const token = useToken();
 
   if (!token) {

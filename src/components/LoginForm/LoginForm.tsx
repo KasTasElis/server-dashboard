@@ -1,33 +1,36 @@
 import clsx from "clsx";
 import { useEffect } from "react";
-import { useForm, SubmitHandler } from "react-hook-form";
+import { useForm } from "react-hook-form";
+import { useNavigate } from "react-router-dom";
+import { useSignIn } from "../../hooks";
 
 type Inputs = {
   username: string;
   password: string;
 };
 
-type LoginFormProps = {
-  onSubmit: SubmitHandler<Inputs>;
-  isLoading?: boolean;
-  serverError?: string;
-};
-
 // TODO: 🚩refactor input fields to a separate component
 
-export const LoginForm = ({ isLoading = false, onSubmit, serverError }: LoginFormProps) => {
+export const LoginForm = () => {
   const {
     register,
     handleSubmit,
     formState: { errors },
     reset,
   } = useForm<Inputs>();
+  const navigate = useNavigate();
+  const { signIn, isLoading, error: serverError } = useSignIn();
 
   useEffect(() => {
     if (serverError) {
       reset();
     }
   }, [serverError, reset]);
+
+  const onSubmit = async (data: Inputs) => {
+    await signIn(data.username, data.password);
+    navigate("/servers");
+  };
 
   return (
     <form
@@ -100,7 +103,7 @@ export const LoginForm = ({ isLoading = false, onSubmit, serverError }: LoginFor
         >
           {isLoading ? "Loading..." : "Log In"}
         </button>
-        
+
         {serverError ? <p className="text-red-500">{serverError}</p> : null}
       </div>
     </form>
