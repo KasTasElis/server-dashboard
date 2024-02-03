@@ -27,6 +27,8 @@ export const LoginForm = () => {
     }
   }, [serverError, reset]);
 
+  console.log("serverError", serverError);
+
   const onSubmit = async (data: Inputs) => {
     await signIn(data.username, data.password);
     navigate("/servers");
