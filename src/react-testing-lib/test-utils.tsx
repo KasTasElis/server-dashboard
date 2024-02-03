@@ -2,7 +2,7 @@
 import React, { ReactElement } from "react";
 import { render, RenderOptions } from "@testing-library/react";
 
-import { GlobalStateProvider } from "../state";
+import { GlobalStateProvider } from "../context";
 
 const AllTheProviders = ({ children }: { children: React.ReactNode }) => {
   return <GlobalStateProvider>{children}</GlobalStateProvider>;

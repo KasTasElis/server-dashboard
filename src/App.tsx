@@ -1,61 +1,34 @@
-import {
-  AddNewIdea,
-  IdeaCard,
-  SortOptions,
-  Notifications,
-  DevTools,
-} from "./components";
-import { useGlobalState } from "./state";
+import { Routes, Route, Navigate } from "react-router-dom";
+import { useToken } from "./context";
+import { useRestoreSession } from "./hooks";
+import { ServerPage, SignInPage } from "./pages";
 
-export enum ESortingOptions {
-  BY_DATE_ASCENDING = "Oldest",
-  BY_DATE_DESCENDING = "Latest",
-  A_Z = "A-Z",
-  Z_A = "Z-A",
+function RequireAuth({ children }: { children: JSX.Element }) {
+  const token = useToken();
+
+  if (!token) {
+    return <Navigate to="/" replace />;
+  }
+
+  return children;
 }
 
 const App = () => {
-  const {
-    state: { ideas },
-  } = useGlobalState();
+  useRestoreSession();
 
   return (
-    <div className="p-3">
-      <div className="mb-10">
-        <DevTools />
-      </div>
-
-      <div className="max-w-screen-md mx-auto">
-        <div className="flex flex-col justify-center text-center gap-2">
-          <div className="text-5xl">🤔</div>
-          <h1 className="text-3xl font-bold mb-7 text-center text-teal-900">
-            Idea Board
-          </h1>
-        </div>
-
-        <Notifications />
-
-        <div className="mb-16">
-          <AddNewIdea />
-        </div>
-
-        {ideas.length ? (
-          <>
-            <div className="mb-5">
-              <SortOptions />
-            </div>
-
-            <ul>
-              {ideas.map((idea) => (
-                <li className="mb-5" key={idea.id}>
-                  <IdeaCard idea={idea} />
-                </li>
-              ))}
-            </ul>
-          </>
-        ) : null}
-      </div>
-    </div>
+    <Routes>
+      <Route index element={<SignInPage />} />
+      <Route
+        path="/servers"
+        element={
+          <RequireAuth>
+            <ServerPage />
+          </RequireAuth>
+        }
+      />
+      <Route path="*" element={<SignInPage />} />
+    </Routes>
   );
 };
 

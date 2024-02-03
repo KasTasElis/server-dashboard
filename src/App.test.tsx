@@ -7,7 +7,7 @@ import App from "./App";
 import { vitest } from "vitest";
 import { mockIdeas } from "./consts";
 import { activeCssClasses } from "./components/SortOptions";
-import { ESortingOptions } from "./state";
+import { ESortingOptions } from "./context";
 
 test("can add a new idea with title, description and created at date", async () => {
   render(<App />);
