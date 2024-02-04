@@ -9,7 +9,7 @@ export const ServerPage = () => {
 
   const { isPending, error, data } = useQuery({
     queryKey: ["serverData"],
-    queryFn: () => fetchServers(token as string),
+    queryFn: () => fetchServers(token),
     refetchOnWindowFocus: false,
   });
 

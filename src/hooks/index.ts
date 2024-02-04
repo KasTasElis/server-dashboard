@@ -45,7 +45,7 @@ export const useSignOut = () => {
 
   return () => {
     window.localStorage.removeItem(TOKEN_NAME);
-    setToken(null);
+    setToken("");
     navigate("/");
   };
 };

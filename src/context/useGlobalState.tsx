@@ -1,12 +1,10 @@
 import { createContext, useContext, useState } from "react";
 
-type Token = string | null;
-
-const TokenContext = createContext<Token>(null);
-const SetTokenContext = createContext<React.Dispatch<React.SetStateAction<Token>>>(() => undefined);
+const TokenContext = createContext("");
+const SetTokenContext = createContext<React.Dispatch<React.SetStateAction<string>>>(() => undefined);
 
 const GlobalStateProvider = ({ children }: { children: React.ReactNode }) => {
-  const [token, setToken] = useState<null | string>(null);
+  const [token, setToken] = useState("");
 
   return (
     <SetTokenContext.Provider value={setToken}>

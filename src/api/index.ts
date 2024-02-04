@@ -19,7 +19,12 @@ export const fetchToken = async (username: string, password: string) => {
   return data.token as string;
 };
 
-export const fetchServers = async (token: string) => {
+type Server = {
+  name: string;
+  distance: number;
+};
+
+export const fetchServers = async (token: string): Promise<Server[]> => {
   const response = await fetch(`${API_BASE_URL}/servers`, {
     headers: {
       Authorization: `Bearer ${token}`,
