@@ -1,8 +1,6 @@
 import clsx from "clsx";
-import { useEffect } from "react";
 import { useForm } from "react-hook-form";
 import { useNavigate } from "react-router-dom";
-import { useSignIn } from "../../hooks";
 
 type Inputs = {
   username: string;
@@ -11,7 +9,7 @@ type Inputs = {
 
 // TODO: 🚩refactor input fields to a separate component
 
-export const LoginForm = () => {
+export const LoginForm = ({ isLoading, onSubmit, serverError }: any) => {
   const {
     register,
     handleSubmit,
@@ -19,25 +17,25 @@ export const LoginForm = () => {
     reset,
   } = useForm<Inputs>();
   const navigate = useNavigate();
-  const { signIn, isLoading, error: serverError } = useSignIn();
+  //const { signIn, isLoading, error: serverError } = useSignIn();
 
-  useEffect(() => {
-    if (serverError) {
-      reset();
-    }
-  }, [serverError, reset]);
+  // useEffect(() => {
+  //   if (serverError) {
+  //     reset();
+  //   }
+  // }, [serverError, reset]);
 
-  console.log("serverError", serverError);
+  //console.log("serverError", serverError);
 
-  const onSubmit = async (data: Inputs) => {
-    await signIn(data.username, data.password);
+  const handleSubmission = async (data: Inputs) => {
+    await onSubmit(data.username, data.password);
     navigate("/servers");
   };
 
   return (
     <form
       className="bg-slate-100 p-4 rounded-lg border shadow-lg"
-      onSubmit={handleSubmit(onSubmit)}
+      onSubmit={handleSubmit(handleSubmission)}
     >
       <div className="mb-4">
         <label

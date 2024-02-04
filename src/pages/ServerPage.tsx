@@ -1,11 +1,9 @@
 import { useQuery } from "@tanstack/react-query";
-import { useNavigate } from "react-router-dom";
 import { fetchServers } from "../api";
 import { useToken } from "../context";
 import { useSignOut } from "../hooks";
 
 export const ServerPage = () => {
-  const navigate = useNavigate();
   const token = useToken();
   const signOut = useSignOut();
 
@@ -15,11 +13,6 @@ export const ServerPage = () => {
     refetchOnWindowFocus: false,
   });
 
-  const handleSignOut = () => {
-    signOut();
-    navigate("/");
-  };
-
   return (
     <div>
       <div className="bg-gradient-to-r from-teal-500 to-indigo-500 shadow-lg border-b">
@@ -28,7 +21,7 @@ export const ServerPage = () => {
             Server Dashboard
           </h1>
           <button
-            onClick={handleSignOut}
+            onClick={signOut}
             className="bg-red-500 rounded p-3 py-2 text-white"
           >
             Log out

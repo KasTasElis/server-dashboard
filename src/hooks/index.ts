@@ -9,24 +9,28 @@ export const useSignIn = () => {
   const setToken = useSetToken();
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState("");
+  const navigate = useNavigate();
+
+  console.log("Error: ", error);
 
   const signIn = async (username: string, password: string) => {
-    if (error) {
-      setError("");
-    }
+    // if (error) {
+    //   setError("");
+    // }
 
     setIsLoading(true);
 
     try {
       const token = await fetchToken(username, password);
-
-      // persist token
       window.localStorage.setItem(TOKEN_NAME, token);
-
       setToken(token);
-    } catch (_err) {
-      // ignoring server message for now, assuming it's always "Invalid credentials".
-      setError("Please check credentials.");
+      navigate("/servers");
+    } catch (err) {
+      console.log("Caught error: ", err);
+      setError("hello error!");
+      setError("hello error 2!");
+      setError(() => "hello error 3!")
+      console.log("Setting error!");
     } finally {
       setIsLoading(false);
     }
@@ -37,10 +41,12 @@ export const useSignIn = () => {
 
 export const useSignOut = () => {
   const setToken = useSetToken();
+  const navigate = useNavigate();
 
   return () => {
     window.localStorage.removeItem(TOKEN_NAME);
     setToken(null);
+    navigate("/");
   };
 };
 

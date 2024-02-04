@@ -1,39 +1,32 @@
 const API_BASE_URL = "https://playground.tesonet.lt/v1";
 
 export const fetchToken = async (username: string, password: string) => {
-  try {
-    const response = await fetch(`${API_BASE_URL}/tokens`, {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify({ username, password }),
-    });
+  const response = await fetch(`${API_BASE_URL}/tokens`, {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify({ username, password }),
+  });
 
-    if (!response.ok) throw new Error("Problem with response.");
+  if (response.status === 401) throw new Error("Invalid credentials. Please try again.");
+  if (!response.ok) throw new Error("Unknown problem with response.");
 
-    const data = await response.json();
+  const data = await response.json();
 
-    if (!data.token) throw new Error("Response missing token.");
+  if (!data.token || typeof data.token !== "string") throw new Error("Response missing important data.");
 
-    return data.token as string;
-  } catch (_error) {
-    throw new Error("Invalid credentials.");
-  }
+  return data.token as string;
 };
 
 export const fetchServers = async (token: string) => {
-  try {
-    const response = await fetch(`${API_BASE_URL}/servers`, {
-      headers: {
-        Authorization: `Bearer ${token}`,
-      },
-    });
+  const response = await fetch(`${API_BASE_URL}/servers`, {
+    headers: {
+      Authorization: `Bearer ${token}`,
+    },
+  });
 
-    if (!response.ok) throw new Error("Problem with response.");
+  if (!response.ok) throw new Error("Unknown problem with response.");
 
-    return response.json();
-  } catch (_error) {
-    throw new Error("Failed to fetch servers");
-  }
+  return response.json();
 };
