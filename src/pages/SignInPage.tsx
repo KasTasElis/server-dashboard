@@ -1,4 +1,4 @@
-import { LoginForm, Table } from "../components";
+import { LoginForm } from "../components";
 import { useSignIn } from "../hooks";
 
 const SignInPage = () => {
@@ -11,11 +11,6 @@ const SignInPage = () => {
         <h1 className="text-center mb-5 text-3xl text-slate-200 font-light">
           Log In
         </h1>
-        
-
-        <div className="mx-auto max-w-full">
-          <Table />
-        </div>
 
         <div className="w-96 mx-auto max-w-full">
           <LoginForm isLoading={isLoading} serverError={error} onSubmit={signIn} />

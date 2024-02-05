@@ -2,10 +2,30 @@ import { useQuery } from "@tanstack/react-query";
 import { fetchServers } from "../api";
 import { useToken } from "../context";
 import { useSignOut } from "../hooks";
+import { useSearchParams } from "react-router-dom";
+import { useEffect } from "react";
 
 export const ServerPage = () => {
   const token = useToken();
   const signOut = useSignOut();
+  let [searchParams, setSearchParams] = useSearchParams();
+
+  // function handleSubmit(event) {
+  //   event.preventDefault();
+  //   // The serialize function here would be responsible for
+  //   // creating an object of { key: value } pairs from the
+  //   // fields in the form that make up the query.
+  //   let params = serializeFormQuery(event.target);
+  //   setSearchParams(params);
+  // }
+
+  //console.log({searchParams});
+
+  useEffect(() => {
+    console.log('sort changed', searchParams.get('sort'));
+
+
+  }, [searchParams])
 
   const { isPending, error, data } = useQuery({
     queryKey: ["serverData"],
@@ -26,6 +46,13 @@ export const ServerPage = () => {
           >
             Log out
           </button>
+
+          <button onClick={() => {
+            setSearchParams({sort: 'a-z'})
+          }}>Sort A-Z</button>
+          <button onClick={() => {
+            setSearchParams({sort: '1-9'})
+          }}>Sort 1-9</button>
         </div>
       </div>
 

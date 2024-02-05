@@ -1,41 +1,32 @@
 import clsx from "clsx";
 import { useForm } from "react-hook-form";
-import { useNavigate } from "react-router-dom";
 
 type Inputs = {
   username: string;
   password: string;
 };
 
-// TODO: 🚩refactor input fields to a separate component
+type LoginFormProps = {
+  isLoading?: boolean;
+  onSubmit: (data: Inputs) => Promise<void>;
+  serverError?: string;
+};
 
-export const LoginForm = ({ isLoading, onSubmit, serverError }: any) => {
+export const LoginForm: React.FC<LoginFormProps> = ({
+  isLoading,
+  onSubmit,
+  serverError,
+}) => {
   const {
     register,
     handleSubmit,
     formState: { errors },
-    reset,
   } = useForm<Inputs>();
-  const navigate = useNavigate();
-  //const { signIn, isLoading, error: serverError } = useSignIn();
-
-  // useEffect(() => {
-  //   if (serverError) {
-  //     reset();
-  //   }
-  // }, [serverError, reset]);
-
-  //console.log("serverError", serverError);
-
-  const handleSubmission = async (data: Inputs) => {
-    await onSubmit(data.username, data.password);
-    navigate("/servers");
-  };
 
   return (
     <form
       className="bg-slate-100 p-4 rounded-lg border shadow-lg"
-      onSubmit={handleSubmit(handleSubmission)}
+      onSubmit={handleSubmit(onSubmit)}
     >
       <div className="mb-4">
         <label
