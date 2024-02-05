@@ -19,7 +19,7 @@ export const fetchToken = async (username: string, password: string) => {
   return data.token as string;
 };
 
-type Server = {
+export type Server = {
   name: string;
   distance: number;
 };
