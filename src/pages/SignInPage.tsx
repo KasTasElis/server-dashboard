@@ -2,8 +2,7 @@ import { LoginForm } from "../components";
 import { useSignIn } from "../hooks";
 
 const SignInPage = () => {
-
-  const {signIn, isLoading, error} = useSignIn();
+  const { signIn, isLoading, error } = useSignIn();
 
   return (
     <div className="bg-gradient-to-r from-teal-500 to-indigo-500">
@@ -12,8 +11,14 @@ const SignInPage = () => {
           Log In
         </h1>
 
+        {error && (
+          <div className="bg-red-500 text-white p-3 mb-3 text-center w-96 mx-auto rounded max-w-full">
+            {error}
+          </div>
+        )}
+
         <div className="w-96 mx-auto max-w-full">
-          <LoginForm isLoading={isLoading} serverError={error} onSubmit={signIn} />
+          <LoginForm isLoading={isLoading} onSubmit={signIn} />
         </div>
       </div>
     </div>

@@ -1,32 +1,37 @@
-import clsx from "clsx";
-import { useForm } from "react-hook-form";
+import { useState } from "react";
 
-type Inputs = {
+type FormState = {
   username: string;
   password: string;
 };
 
 type LoginFormProps = {
   isLoading?: boolean;
-  onSubmit: (data: Inputs) => Promise<void>;
-  serverError?: string;
+  onSubmit?: (data: FormState) => unknown;
 };
 
-export const LoginForm: React.FC<LoginFormProps> = ({
+const LoginForm: React.FC<LoginFormProps> = ({
   isLoading,
   onSubmit,
-  serverError,
 }) => {
-  const {
-    register,
-    handleSubmit,
-    formState: { errors },
-  } = useForm<Inputs>();
+  const [state, setState] = useState<FormState>({ username: "", password: "" });
+
+  const onChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setState((prev) => ({ ...prev, [e.target.name]: e.target.value }));
+  };
+
+  const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+
+    if (onSubmit) {
+      onSubmit(state);
+    }
+  };
 
   return (
     <form
       className="bg-slate-100 p-4 rounded-lg border shadow-lg"
-      onSubmit={handleSubmit(onSubmit)}
+      onSubmit={handleSubmit}
     >
       <div className="mb-4">
         <label
@@ -36,28 +41,21 @@ export const LoginForm: React.FC<LoginFormProps> = ({
           Username
         </label>
         <input
-          autoFocus
-          className={clsx(
-            "border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline",
-            { "border-red-500": errors.username }
-          )}
+          className="border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline"
           placeholder="Username"
-          {...register("username", {
-            required: "Please enter your username.",
-            minLength: {
-              value: 3,
-              message: "Username must be at least 3 characters long.",
-            },
-          })}
+          disabled={isLoading}
+          name="username"
+          id="username"
+          type="text"
+          value={state.username}
+          onChange={onChange}
+          required
+          minLength={3}
+          autoFocus
         />
-        {errors.username && (
-          <p className="text-red-500 text-xs italic">
-            {errors.username.message}
-          </p>
-        )}
       </div>
 
-      <div className="mb-6">
+      <div className="mb-7">
         <label
           htmlFor="password"
           className="block text-gray-600 text-xs font-bold mb-2"
@@ -65,38 +63,28 @@ export const LoginForm: React.FC<LoginFormProps> = ({
           Password
         </label>
         <input
-          className={clsx(
-            "border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline",
-            { "border-red-500": errors.password }
-          )}
-          type="password"
-          placeholder="Password"
-          {...register("password", {
-            required: "Please enter your password.",
-            minLength: {
-              value: 3,
-              message: "Password must be at least 3 characters long.",
-            },
-          })}
-        />
-        {errors.password && (
-          <p className="text-red-500 text-xs italic">
-            {errors.password.message}
-          </p>
-        )}
-      </div>
-
-      <div className="flex items-center gap-3">
-        <button
+          className="border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline"
           disabled={isLoading}
-          type="submit"
-          className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-5 rounded focus:shadow-outline disabled:opacity-50 disabled:cursor-not-allowed"
-        >
-          {isLoading ? "Loading..." : "Log In"}
-        </button>
-
-        {serverError ? <p className="text-red-500">{serverError}</p> : null}
+          placeholder="Password"
+          id="password"
+          type="password"
+          name="password"
+          value={state.password}
+          onChange={onChange}
+          required
+          minLength={3}
+        />
       </div>
+
+      <button
+        disabled={isLoading}
+        type="submit"
+        className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-5 rounded focus:shadow-outline disabled:opacity-50 disabled:cursor-not-allowed"
+      >
+        {isLoading ? "Loading..." : "Log In"}
+      </button>
     </form>
   );
 };
+
+export { LoginForm }

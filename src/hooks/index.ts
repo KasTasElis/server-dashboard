@@ -11,26 +11,20 @@ export const useSignIn = () => {
   const [error, setError] = useState("");
   const navigate = useNavigate();
 
-  console.log("Error: ", error);
-
-  const signIn = async (username: string, password: string) => {
-    // if (error) {
-    //   setError("");
-    // }
+  const signIn = async (credentials: {username: string, password: string}) => {
+    if (error) {
+      setError("");
+    }
 
     setIsLoading(true);
 
     try {
-      const token = await fetchToken(username, password);
+      const token = await fetchToken(credentials.username, credentials.password);
       window.localStorage.setItem(TOKEN_NAME, token);
       setToken(token);
       navigate("/servers");
     } catch (err) {
-      console.log("Caught error: ", err);
-      setError("hello error!");
-      setError("hello error 2!");
-      setError(() => "hello error 3!")
-      console.log("Setting error!");
+      setError(((err as Error).message));
     } finally {
       setIsLoading(false);
     }
