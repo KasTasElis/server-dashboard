@@ -1,17 +1,7 @@
-import { Routes, Route, Navigate } from "react-router-dom";
-import { useToken } from "./context";
+import { Routes, Route } from "react-router-dom";
 import { useRestoreSession } from "./hooks";
 import { ServerPage, SignInPage } from "./pages";
-
-const RequireAuth = ({ children }: { children: JSX.Element }) => {
-  const token = useToken();
-
-  if (!token) {
-    return <Navigate to="/" replace />;
-  }
-
-  return children;
-}
+import { RequireAuth } from "./components";
 
 const App = () => {
   useRestoreSession();
