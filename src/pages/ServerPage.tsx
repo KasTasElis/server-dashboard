@@ -4,6 +4,7 @@ import { useToken } from "../context";
 import { useSignOut } from "../hooks";
 import clsx from "clsx";
 import { useState } from "react";
+import { PageContainer } from "../components";
 
 const Header = () => {
   const signOut = useSignOut();
@@ -105,7 +106,6 @@ const ServerList = () => {
 
   return (
     <div className="container mx-auto px-4 py-10">
-
       <div className="flex gap-3 mb-5 items-center">
         <label className="text-slate-100" htmlFor="sortBy">
           Sort By:
@@ -159,12 +159,12 @@ const ServerList = () => {
 
 export const ServerPage = () => {
   return (
-    <div className="bg-gradient-to-r from-teal-500 to-indigo-500 min-h-screen">
+    <PageContainer>
       <Header />
 
-      <div>
+      <div className="w-96 max-w-full mx-auto">
         <ServerList />
       </div>
-    </div>
+    </PageContainer>
   );
 };
