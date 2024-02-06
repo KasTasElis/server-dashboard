@@ -56,8 +56,7 @@ type SortBy =
   | "name-ascending"
   | "name-descending"
   | "distance-ascending"
-  | "distance-descending"
-  | null;
+  | "distance-descending";
 
 const getSortedData = (data: Server[], sorting?: SortBy) => {
   if (sorting === "name-ascending") return sortServersByNameAscending(data);
@@ -79,7 +78,7 @@ const ServerList = () => {
     refetchOnWindowFocus: false, // dont need to do it for this implementation
   });
 
-  const [sortBy, setSortBy] = useState<SortBy>();
+  const [sortBy, setSortBy] = useState<SortBy | undefined>();
 
   if (isPending)
     return (
@@ -116,8 +115,9 @@ const ServerList = () => {
           id="sortBy"
           className="cursor-pointer bg-gray-200/80 text-gray-800 text-sm p-1 rounded-md select-icon-left shadow-md"
           onChange={(e) => setSortBy(e.target.value as SortBy)}
+          value={sortBy}
         >
-          <option value="none">None</option>
+          <option value={undefined}>None</option>
           <option value="name-ascending">Name (A-Z)</option>
           <option value="name-descending">Name (Z-A)</option>
           <option value="distance-ascending">Distance (ASC)</option>
