@@ -79,7 +79,7 @@ const ServerList = () => {
     refetchOnWindowFocus: false, // dont need to do it for this implementation
   });
 
-  const [sorting, setSorting] = useState<SortBy>(null);
+  const [sortBy, setSortBy] = useState<SortBy>();
 
   if (isPending)
     return (
@@ -102,48 +102,36 @@ const ServerList = () => {
       </Message>
     );
 
-  const sortedData = getSortedData(data, sorting);
+  const sortedData = getSortedData(data, sortBy);
 
   return (
     <div className="container mx-auto px-4 py-10">
 
-      <div>
-        <p>Sorty By:</p>
-        <div className="flex space-x-3">
-          <button
-            onClick={() => setSorting("name-ascending")}
-            className="bg-white/10 hover:bg-white/20 rounded p-2"
-          >
-            Name (A-Z)
-          </button>
-          <button
-            onClick={() => setSorting("name-descending")}
-            className="bg-white/10 hover:bg-white/20 rounded p-2"
-          >
-            Name (Z-A)
-          </button>
-          <button
-            onClick={() => setSorting("distance-ascending")}
-            className="bg-white/10 hover:bg-white/20 rounded p-2"
-          >
-            Distance (ASC)
-          </button>
-          <button
-            onClick={() => setSorting("distance-descending")}
-            className="bg-white/10 hover:bg-white/20 rounded p-2"
-          >
-            Distance (DESC)
-          </button>
-          </div>  
+      <div className="flex gap-3 mb-5 items-center">
+        <label className="text-slate-100" htmlFor="sortBy">
+          Sort By:
+        </label>
+        <select
+          name="sortBy"
+          id="sortBy"
+          className="cursor-pointer bg-gray-200/80 text-gray-800 text-sm p-1 rounded-md select-icon-left shadow-md"
+          onChange={(e) => setSortBy(e.target.value as SortBy)}
+        >
+          <option value="none">None</option>
+          <option value="name-ascending">Name (A-Z)</option>
+          <option value="name-descending">Name (Z-A)</option>
+          <option value="distance-ascending">Distance (ASC)</option>
+          <option value="distance-descending">Distance (DSC)</option>
+        </select>
       </div>
 
-      <table className="w-full max-w-xl mx-auto mb-7 rounded-md overflow-hidden shadow-lg">
+      <table className="w-full max-w-full mb-7 rounded-md overflow-hidden shadow-lg">
         <thead>
           <tr className="text-left bg-white/70 min-w-full text-slate-700">
-            <th className="px-4 py-3 min-w-full border-r cursor-pointer hover:bg-white/50">
+            <th className="px-4 py-3 min-w-full border-r hover:bg-white/50">
               Server Name
             </th>
-            <th className="px-4 py-3 min-w-full cursor-pointer hover:bg-white/50">
+            <th className="px-4 py-3 min-w-full hover:bg-white/50">
               Distance (km)
             </th>
           </tr>
@@ -155,7 +143,6 @@ const ServerList = () => {
               className={clsx(
                 "border-b border-white/20 bg-white/20 text-slate-100 hover:bg-white/50",
                 {
-                  // Add a different background color for every other row
                   "bg-white/40": i % 2 === 0,
                 }
               )}
