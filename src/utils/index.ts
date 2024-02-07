@@ -1,12 +1,13 @@
 import { Server } from "../api";
 
 export type SortBy =
+  | "none"
   | "name-ascending"
   | "name-descending"
   | "distance-ascending"
   | "distance-descending";
 
-export const getSortedServerData = (data: Server[], sorting?: SortBy) => {
+export const getSortedServerData = (data: Server[], sorting: SortBy) => {
   if (sorting === "name-ascending") return sortServersByNameAscending(data);
   if (sorting === "name-descending") return sortServersByNameDescending(data);
   if (sorting === "distance-ascending")
