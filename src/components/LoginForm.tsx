@@ -10,10 +10,55 @@ type LoginFormProps = {
   onSubmit?: (data: FormState) => unknown;
 };
 
-const LoginForm: React.FC<LoginFormProps> = ({
-  isLoading,
-  onSubmit,
-}) => {
+type InputProps = {
+  label: string;
+  disabled?: boolean;
+  name: string;
+  type: "text" | "password";
+  value: string;
+  onChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
+  autoFocus?: boolean;
+  required?: boolean;
+  minLength?: number;
+};
+
+const Input = ({
+  label,
+  disabled = false,
+  name,
+  type = "text",
+  value,
+  onChange,
+  autoFocus = false,
+  required = false,
+  minLength,
+}: InputProps) => {
+  return (
+    <>
+      <label
+        htmlFor={name}
+        className="block text-gray-600 text-xs font-bold mb-2"
+      >
+        {label}
+      </label>
+      <input
+        className="border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline"
+        placeholder={label}
+        disabled={disabled}
+        name={name}
+        id={name}
+        type={type}
+        value={value}
+        onChange={onChange}
+        required={required}
+        minLength={minLength}
+        autoFocus={autoFocus}
+      />
+    </>
+  );
+};
+
+const LoginForm: React.FC<LoginFormProps> = ({ isLoading, onSubmit }) => {
   const [state, setState] = useState<FormState>({ username: "", password: "" });
 
   const onChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -34,41 +79,25 @@ const LoginForm: React.FC<LoginFormProps> = ({
       onSubmit={handleSubmit}
     >
       <div className="mb-4">
-        <label
-          htmlFor="username"
-          className="block text-gray-600 text-xs font-bold mb-2"
-        >
-          Username
-        </label>
-        <input
-          className="border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline"
-          placeholder="Username"
+        <Input
+          label="Username"
           disabled={isLoading}
           name="username"
-          id="username"
           type="text"
           value={state.username}
           onChange={onChange}
           required
-          minLength={3}
           autoFocus
+          minLength={3}
         />
       </div>
 
       <div className="mb-7">
-        <label
-          htmlFor="password"
-          className="block text-gray-600 text-xs font-bold mb-2"
-        >
-          Password
-        </label>
-        <input
-          className="border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline"
+        <Input
+          label="Password"
           disabled={isLoading}
-          placeholder="Password"
-          id="password"
-          type="password"
           name="password"
+          type="password"
           value={state.password}
           onChange={onChange}
           required
@@ -87,4 +116,4 @@ const LoginForm: React.FC<LoginFormProps> = ({
   );
 };
 
-export { LoginForm }
+export { LoginForm };
