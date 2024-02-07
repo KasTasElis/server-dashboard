@@ -1,37 +1,29 @@
-## The Task
+## Possible Refactoring
 
-Build an idea board that allows a user to create new ideas, edit existing ideas or delete them. Each idea should be represented as a tile on the board that displays a title, description and created/updated time. The title and description should be editable inline. The description text should have a max length of 140 characters. There should also be a button on the tile that allows for it to be deleted.
+While developing this app within a limited timeframe, some optimizations were made. However, there are additional improvements that could be considered:
 
-When working through the task you should treat it as if you're writing real world production code. We're looking to see a test suite, comments where required and an attention to detail. In addition to this you may use whatever libraries or packages you wish. This should take you around two or three hours to complete fully but feel free to spend as much or as little time on the exercise as you like. Detail anything you didn't get around to completing in the `COMMENTS.md` file along with any other additonal information we should be aware of when reviewing the code.
+- Restructure the server table and filtering to accommodate potential changes to the Server entity, such as adding more fields.
+- For future forms, it may be beneficial to incorporate a more robust form management and validation library. One recommended option is react-hook-form combined with ZOD, especially when working with TypeScript.
 
-### Required
+## Login Credentials
 
-- Page should be fully responsive.
-- Each idea tile should contain a title and description, which is editable, as well as created/updated time.
-- New ideas should have the title field focused to prompt user to begin typing.
-- Add the ability to sort ideas by creation date or alphabetically.
+- username: tesonet
+- pass: partyanimal
 
-### Extra Points
+## Live Application View
 
-- Utilise the localStorage API to persist current state when the page is refreshed.
-- Add a character countdown as the user is approaching the limit of their description text.
-- Add an unobtrusive notification when an update is made to a tile.
-
-## Tech Choices
-
-- Vite build engine
-- Vitest with React Testing Lib for unit & integration testing
-- React & Typescript for views 💪
+[🧑‍💻 Preview Live Application Here](https://kastaselis.github.io/nord-security-server-dashboard/)
 
 ## Important Commands
 
 - `npm run dev` will run the development server.
-- `npm run build` runs build script.
-- `npm run test` will run the unit & integreation test suite.
-- `npm run test:coverage` runs unit & integration test suite and generates a coverage report.
+- `npm run build` runs the build script.
+- `npm run test` will run the unit & integration test suite.
+- `npm run test:coverage` runs the unit & integration test suite and generates a coverage report.
 
-## Application Preview
+## Application Screenshots
 
-[🧑‍💻 Preview Live Application Here](https://kastaselis.github.io/idea-board/)
-
-![app preview](./screenshot.png)
+<div style="display: flex; gap: 30px;">
+    <img src="./app-screenshot-1.png" alt="app preview" style="max-width: 50%;">
+    <img src="./app-screenshot-2.png" alt="app preview" style="max-width: 50%;">
+</div>
