@@ -1,4 +1,4 @@
-import { Header, PageContainer, ServerTable } from "../components";
+import { Header, PageContainer, ServerTableContainer } from "../components";
 
 export const ServerPage = () => {
   return (
@@ -6,7 +6,7 @@ export const ServerPage = () => {
       <Header />
 
       <div className="w-96 max-w-full mx-auto">
-        <ServerTable />
+        <ServerTableContainer />
       </div>
     </PageContainer>
   );

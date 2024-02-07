@@ -1,7 +1,8 @@
 import clsx from "clsx";
-import { SelectInput } from ".";
-import { useServerData } from "../hooks";
-import { SortBy } from "../utils";
+import { SelectInput } from "..";
+import { useServerData } from "../../hooks";
+import { SortBy } from "../../utils";
+import { Server } from "../../api";
 
 const SORT_OPTIONS = [
   { value: "none", label: "None" },
@@ -19,7 +20,15 @@ const Message = ({ children }: { children: React.ReactNode }) => {
   );
 };
 
-const ServerTable = () => {
+interface ServerTableProps {
+  serverData: Server[];
+  isPending?: boolean;
+  sortBy: SortBy;
+  setSortBy: (sortBy: SortBy) => void;
+  error: Error | null;
+}
+
+export const ServerTableContainer = () => {
   const {
     isPending,
     error,
@@ -28,6 +37,24 @@ const ServerTable = () => {
     sortBy,
   } = useServerData();
 
+  return (
+    <ServerTable
+      serverData={serverData}
+      isPending={isPending}
+      sortBy={sortBy}
+      setSortBy={setSortBy}
+      error={error}
+    />
+  );
+};
+
+export const ServerTable: React.FC<ServerTableProps> = ({
+  serverData,
+  isPending = false,
+  sortBy,
+  setSortBy,
+  error,
+}) => {
   const renderServerDataRows = () => {
     return serverData.map(({ distance, name }, i) => (
       <tr
@@ -97,6 +124,4 @@ const ServerTable = () => {
       </table>
     </div>
   );
-};
-
-export { ServerTable };
+}

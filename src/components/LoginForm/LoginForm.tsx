@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { Input } from "./Inputs";
+import { Input } from "../Inputs";
 
 type FormState = {
   username: string;
