@@ -74,7 +74,7 @@ const ServerTable = () => {
     <div className="container mx-auto px-4 py-10">
       <div className="mb-5">
         <SelectInput
-          label="Sorty by"
+          label="Sort by"
           options={SORT_OPTIONS}
           name="sortBy"
           value={sortBy}
