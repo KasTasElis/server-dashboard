@@ -24,8 +24,8 @@ interface ServerTableProps {
   serverData: Server[];
   isPending?: boolean;
   sortBy: SortBy;
-  setSortBy: (sortBy: SortBy) => void;
-  error: Error | null;
+  setSortBy?: (sortBy: SortBy) => void;
+  error?: Error;
 }
 
 export const ServerTableContainer = () => {
@@ -42,8 +42,8 @@ export const ServerTableContainer = () => {
       serverData={serverData}
       isPending={isPending}
       sortBy={sortBy}
-      setSortBy={setSortBy}
-      error={error}
+      setSortBy={setSortBy || undefined}
+      error={error || undefined}
     />
   );
 };
@@ -73,7 +73,7 @@ export const ServerTable: React.FC<ServerTableProps> = ({
   };
 
   const onChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
-    setSortBy(e.target.value as SortBy);
+    if (setSortBy) setSortBy(e.target.value as SortBy);
   };
 
   if (isPending)

@@ -1,1 +1,1 @@
-export * from "./useGlobalState";
+export * from "./AuthContext";

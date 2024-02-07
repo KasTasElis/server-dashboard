@@ -1,8 +1,8 @@
 import { Navigate } from "react-router-dom";
-import { useToken } from "../context";
+import { useAuth } from "../context";
 
 const RequireAuth = ({ children }: { children: JSX.Element }) => {
-  const token = useToken();
+  const { token } = useAuth();
 
   if (!token) {
     return <Navigate to="/" replace />;

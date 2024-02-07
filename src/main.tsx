@@ -1,7 +1,7 @@
 import React from "react";
 import ReactDOM from "react-dom/client";
 import App from "./App.tsx";
-import { GlobalStateProvider } from "./context/index.ts";
+import { AuthContextProvider } from "./context/index.ts";
 import { BrowserRouter } from "react-router-dom";
 import { QueryClientProvider, QueryClient } from "@tanstack/react-query";
 import "./main.css";
@@ -12,9 +12,9 @@ ReactDOM.createRoot(document.getElementById("root") as HTMLElement).render(
   <React.StrictMode>
     <QueryClientProvider client={queryClient}>
       <BrowserRouter>
-        <GlobalStateProvider>
+        <AuthContextProvider>
           <App />
-        </GlobalStateProvider>
+        </AuthContextProvider>
       </BrowserRouter>
     </QueryClientProvider>
   </React.StrictMode>

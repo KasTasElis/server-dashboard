@@ -1,11 +1,11 @@
 import { useQuery } from "@tanstack/react-query";
 import { useState } from "react";
 import { fetchServers } from "../api";
-import { useToken } from "../context";
+import { useAuth } from "../context";
 import { SortBy, getSortedServerData } from "../utils";
 
 const useServerData = () => {
-  const token = useToken();
+  const { token } = useAuth();
   const [sortBy, setSortBy] = useState<SortBy>("none");
 
   const {

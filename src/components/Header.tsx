@@ -1,7 +1,7 @@
-import { useSignOut } from "../hooks";
+import { useAuth } from "../context";
 
 const Header = () => {
-  const signOut = useSignOut();
+  const { signOut } = useAuth();
 
   return (
     <>

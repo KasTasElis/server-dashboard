@@ -1,8 +1,8 @@
 import { LoginForm, PageContainer } from "../components";
-import { useSignIn } from "../hooks";
+import { useAuth } from "../context";
 
 const SignInPage = () => {
-  const { signIn, isLoading, error } = useSignIn();
+  const { signIn, isLoading, error } = useAuth();
 
   return (
     <PageContainer>
