@@ -29,4 +29,21 @@ describe('LoginForm', () => {
     expect(getByLabelText('Password')).toBeDisabled();
     expect(getByRole('button')).toBeDisabled();
   });
+
+  test('prevents submission with invalid data', async () => {
+    const handleSubmit = vitest.fn();
+    const { getByLabelText, getByRole } = render(<LoginForm onSubmit={handleSubmit} />);
+  
+    // Case 1: Username is empty
+    fireEvent.input(getByLabelText('Username'), { target: { value: '' } });
+    fireEvent.input(getByLabelText('Password'), { target: { value: 'testpass' } });
+    fireEvent.click(getByRole('button'));
+    await waitFor(() => expect(handleSubmit).not.toHaveBeenCalled());
+  
+    // Case 2: Password is empty
+    fireEvent.input(getByLabelText('Username'), { target: { value: 'testuser' } });
+    fireEvent.input(getByLabelText('Password'), { target: { value: '' } });
+    fireEvent.click(getByRole('button'));
+    await waitFor(() => expect(handleSubmit).not.toHaveBeenCalled());
+  });
 });

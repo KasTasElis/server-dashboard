@@ -61,7 +61,7 @@ const LoginForm: React.FC<LoginFormProps> = ({ isLoading, onSubmit }) => {
       <button
         disabled={isLoading}
         type="submit"
-        className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-5 rounded focus:shadow-outline disabled:opacity-50 disabled:cursor-not-allowed"
+        className="bg-blue-500 hover:bg-blue-700 text-white py-2 px-5 rounded focus:shadow-outline disabled:opacity-50 disabled:cursor-not-allowed"
       >
         {isLoading ? "Loading..." : "Log In"}
       </button>
