@@ -6,6 +6,10 @@ export default defineConfig(({ command }) => {
   const config = {
     plugins: [react()],
     base: "/",
+    server: {
+      host: true,
+      port: 3000,
+    },
     test: {
       coverage: {
         provider: "istanbul",

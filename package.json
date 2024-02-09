@@ -7,13 +7,15 @@
     "dev": "vite",
     "test": "vitest",
     "test:coverage": "vitest run --coverage",
-    "test:e2e": "cypress run",
+    "cy:run": "cypress run",
+    "cy:open": "cypress open",
     "build": "tsc && vite build",
-    "cypress:open": "cypress open"
+    "cypress:open": "cypress open",
+    "test:e2e": "start-server-and-test dev http-get://localhost:3000 cy:run"
   },
-  "engines" : { 
-    "npm" : ">=10.0.0 <11.0.0",
-    "node" : ">=20.0.0 <21.0.0"
+  "engines": {
+    "npm": ">=10.0.0 <11.0.0",
+    "node": ">=20.0.0 <21.0.0"
   },
   "dependencies": {
     "@tanstack/react-query": "^5.18.1",
@@ -41,6 +43,7 @@
     "postcss": "^8.4.24",
     "prettier": "^3.2.5",
     "prettier-plugin-tailwindcss": "^0.5.11",
+    "start-server-and-test": "^2.0.3",
     "tailwindcss": "^3.3.2",
     "typescript": "^5.0.2",
     "vite": "^4.3.9",

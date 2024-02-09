@@ -4,6 +4,8 @@ Overall, my testing strategy was to "cast a wide net" over my code. I rely on le
 
 As the app would scale, a more robust form management and validation library would make sense. eg. react-hook-forms & ZOD.
 
+Also, setting up a solid CI&CD pipeline with husky, Cypress & Vitest would probably be the next step I would do for this repo.
+
 ## Login Credentials
 
 Since credentials are not sensitive for this API I am including them in the readme for user's convenience.
@@ -17,11 +19,11 @@ Since credentials are not sensitive for this API I am including them in the read
 
 ## Important Commands
 
-- `npm run dev` will run the development server.
-- `npm run build` runs the build script.
-- `npm run test` will run the unit & integration test suite.
-- `npm run test:coverage` runs the unit & integration test suite and generates a coverage report.
-- `npm run test:e2e` runs the e2e test suite. IMPORTANT - your development server must be running first.
+- `npm run dev` starts development server.
+- `npm run build` runs build script.
+- `npm run test` runs unit & integration test suite.
+- `npm run test:coverage` runs the unit & integration test suite and generates a istanbul test coverage report.
+- `npm run test:e2e` starts the server & runs the e2e test suite in headless mode. Exits when done.
 
 ## Application Screenshots
 
