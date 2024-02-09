@@ -23,6 +23,7 @@ Overall, my testing strategy under a short deadline is to "cast a wide net" over
 - `npm run build` runs the build script.
 - `npm run test` will run the unit & integration test suite.
 - `npm run test:coverage` runs the unit & integration test suite and generates a coverage report.
+- `npm run test:e2e` runs the e2e test suite. IMPORTANT - your development server must be running first.
 
 ## Application Screenshots
 
