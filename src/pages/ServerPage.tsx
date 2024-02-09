@@ -1,16 +1,12 @@
 import { useMemo } from "react";
 import { fetchServers } from "../api";
-import {
-  Header,
-  PageContainer,
-  Table,
-} from "../components";
+import { Header, PageContainer, Table } from "../components";
 import { useAuth } from "../context";
 import { useQuery } from "@tanstack/react-query";
 
 const Message = ({ children }: { children: React.ReactNode }) => {
   return (
-    <div className="text-center text-white font-light text-xl py-9">
+    <div className="py-9 text-center text-xl font-light text-white">
       {children}
     </div>
   );
@@ -19,11 +15,7 @@ const Message = ({ children }: { children: React.ReactNode }) => {
 export const ServerPage = () => {
   const { token } = useAuth();
   const queryFn = fetchServers(token);
-  const {
-    isPending,
-    error,
-    data
-  } = useQuery({
+  const { isPending, error, data } = useQuery({
     queryKey: ["serverData"],
     queryFn,
     refetchOnWindowFocus: false, // dont need to do it for this implementation 🤔
@@ -58,7 +50,7 @@ export const ServerPage = () => {
     <PageContainer>
       <Header />
 
-      <div className="w-96 max-w-full mx-auto px-4 mt-9">{renderContent}</div>
+      <div className="mx-auto mt-9 w-96 max-w-full px-4">{renderContent}</div>
     </PageContainer>
   );
 };

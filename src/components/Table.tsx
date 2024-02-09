@@ -31,19 +31,19 @@ const Table = ({ data }: TableProps) => {
   });
 
   return (
-    <table className="w-full max-w-full mb-7 rounded-md overflow-hidden shadow-lg">
+    <table className="mb-7 w-full max-w-full overflow-hidden rounded-md shadow-lg">
       <thead>
         {table.getHeaderGroups().map((headerGroup) => (
           <tr
             key={headerGroup.id}
-            className="text-left bg-white/70 min-w-full text-slate-700"
+            className="min-w-full bg-white/70 text-left text-slate-700"
           >
             {headerGroup.headers.map((header) => {
               return (
                 <th
                   key={header.id}
                   colSpan={header.colSpan}
-                  className="px-4 py-3 min-w-full border-r hover:bg-white/50"
+                  className="min-w-full border-r px-4 py-3 hover:bg-white/50"
                 >
                   <div
                     {...{
@@ -55,7 +55,7 @@ const Table = ({ data }: TableProps) => {
                   >
                     {flexRender(
                       header.column.columnDef.header,
-                      header.getContext()
+                      header.getContext(),
                     )}
                     {{
                       asc: " 🔼",
@@ -72,10 +72,10 @@ const Table = ({ data }: TableProps) => {
         {table.getRowModel().rows.map((row) => (
           <tr
             key={row.id}
-            className="border-b border-white/20 bg-white/20 text-slate-100 hover:bg-white/50 even:bg-white/40"
+            className="border-b border-white/20 bg-white/20 text-slate-100 even:bg-white/40 hover:bg-white/50"
           >
             {row.getVisibleCells().map((cell) => (
-              <td key={cell.id} className="border-r px-4 py-1 border-white/40">
+              <td key={cell.id} className="border-r border-white/40 px-4 py-1">
                 {flexRender(cell.column.columnDef.cell, cell.getContext())}
               </td>
             ))}

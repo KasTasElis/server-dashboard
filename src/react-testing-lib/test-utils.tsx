@@ -2,10 +2,10 @@
 import React, { ReactElement } from "react";
 import { render, RenderOptions } from "@testing-library/react";
 
-import { GlobalStateProvider } from "../context";
+import { AuthContextProvider } from "../context";
 
 const AllTheProviders = ({ children }: { children: React.ReactNode }) => {
-  return <GlobalStateProvider>{children}</GlobalStateProvider>;
+  return <AuthContextProvider>{children}</AuthContextProvider>;
 };
 
 const customRender = (

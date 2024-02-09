@@ -25,12 +25,12 @@ const Input = ({
     <>
       <label
         htmlFor={name}
-        className="block text-gray-600 text-xs font-bold mb-2"
+        className="mb-2 block text-xs font-bold text-gray-600"
       >
         {label}
       </label>
       <input
-        className="border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline"
+        className="w-full rounded border px-3 py-2 leading-tight text-gray-700 focus:outline"
         placeholder={label}
         disabled={disabled}
         name={name}

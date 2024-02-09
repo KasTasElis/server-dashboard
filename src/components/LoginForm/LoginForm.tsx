@@ -28,7 +28,7 @@ const LoginForm: React.FC<LoginFormProps> = ({ isLoading, onSubmit }) => {
 
   return (
     <form
-      className="bg-slate-100 p-4 rounded-lg border shadow-lg"
+      className="rounded-lg border bg-slate-100 p-4 shadow-lg"
       onSubmit={handleSubmit}
     >
       <div className="mb-4">
@@ -61,7 +61,7 @@ const LoginForm: React.FC<LoginFormProps> = ({ isLoading, onSubmit }) => {
       <button
         disabled={isLoading}
         type="submit"
-        className="bg-blue-500 hover:bg-blue-700 text-white py-2 px-5 rounded focus:shadow-outline disabled:opacity-50 disabled:cursor-not-allowed"
+        className="focus:shadow-outline rounded bg-blue-500 px-5 py-2 text-white hover:bg-blue-700 disabled:cursor-not-allowed disabled:opacity-50"
       >
         {isLoading ? "Loading..." : "Log In"}
       </button>

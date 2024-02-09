@@ -6,13 +6,13 @@ const SignInPage = () => {
 
   return (
     <PageContainer>
-      <div className="w-96 max-w-full mx-auto min-h-screen flex flex-col justify-center px-4">
-        <h1 className="text-center mb-5 text-3xl text-white font-light">
+      <div className="mx-auto flex min-h-screen w-96 max-w-full flex-col justify-center px-4">
+        <h1 className="mb-5 text-center text-3xl font-light text-white">
           Log In
         </h1>
 
         {error && (
-          <div className="bg-red-500/90 text-white p-3 mb-3 text-center rounded">
+          <div className="mb-3 rounded bg-red-500/90 p-3 text-center text-white">
             {error}
           </div>
         )}

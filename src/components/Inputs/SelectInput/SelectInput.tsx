@@ -22,14 +22,14 @@ const SelectInput = ({
   };
 
   return (
-    <div className="flex gap-3 items-center">
+    <div className="flex items-center gap-3">
       <label className="text-slate-100" htmlFor="sortBy">
         {label}
       </label>
       <select
         name={name}
         id={name}
-        className="cursor-pointer bg-gray-200/80 text-gray-800 text-sm p-1 rounded-md select-icon-left shadow-md"
+        className="select-icon-left cursor-pointer rounded-md bg-gray-200/80 p-1 text-sm text-gray-800 shadow-md"
         onChange={onChange}
         value={value}
       >
