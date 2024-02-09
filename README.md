@@ -13,7 +13,7 @@ Since credentials are not sensitive for this API I am including them in the read
 
 ## Live Application View
 
-[🧑‍💻 Preview Live Application Here](https://kastaselis.github.io/nord-security-server-dashboard/)
+[🧑‍💻 Preview Live Application Here](https://kastaselis.github.io/nord-security-task/)
 
 ## Important Commands
 
