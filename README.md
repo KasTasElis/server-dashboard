@@ -1,14 +1,12 @@
-## Possible Refactoring
+## Possible Improvements
 
-While developing this app within a limited timeframe, some optimizations were made. However, there are additional improvements that could be considered:
+Overall, my testing strategy was to "cast a wide net" over my code. I rely on less but higher level tests eg. integration & e2e. Gives me max return on investment in a short amount of time.
 
-- Restructure the server table and filtering to accommodate potential changes to the Server entity, such as adding more fields.
-- Create resuable components like cards / table cells / buttons for reuse.
-- For future forms, it may be beneficial to incorporate a more robust form management and validation library. One recommended option is react-hook-form combined with ZOD, especially when working with TypeScript.
-
-Overall, my testing strategy under a short deadline is to "cast a wide net" over my code. Meaning I rely on higher level tests like integration and e2e. Gives us max return on investment in a short amount of time. With more time on your hands, you could create a more fine-grained test suite.
+As the app would scale, a more robust form management and validation library would make sense. eg. react-hook-forms & ZOD.
 
 ## Login Credentials
+
+Since credentials are not sensitive for this API I am including them in the readme for user's convenience.
 
 - username: tesonet
 - pass: partyanimal
