@@ -5,7 +5,6 @@ import {
   flexRender,
   getSortedRowModel,
 } from "@tanstack/react-table";
-import clsx from "clsx";
 
 type Server = {
   name: string;
@@ -93,16 +92,10 @@ const Table = () => {
         ))}
       </thead>
       <tbody>
-        {table.getRowModel().rows.map((row, index) => (
+        {table.getRowModel().rows.map((row) => (
           <tr
             key={row.id}
-            // There should be a cleaner way to do this with tailwind selectors!
-            className={clsx(
-              "border-b border-white/20 bg-white/20 text-slate-100 hover:bg-white/50",
-              {
-                "bg-white/40": index % 2 === 0,
-              }
-            )}
+            className="border-b border-white/20 bg-white/20 text-slate-100 hover:bg-white/50 even:bg-white/40"
           >
             {row.getVisibleCells().map((cell) => (
               <td key={cell.id} className="border-r px-4 py-1 border-white/40">
