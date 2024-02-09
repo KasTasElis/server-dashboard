@@ -5,7 +5,7 @@ import {
   flexRender,
   getSortedRowModel,
 } from "@tanstack/react-table";
-import { Server } from "../api";
+import { Server } from "../../api";
 
 const columnHelper = createColumnHelper<Server>();
 

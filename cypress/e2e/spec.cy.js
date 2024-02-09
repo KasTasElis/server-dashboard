@@ -1,6 +1,13 @@
 describe('Application user', () => {
 
-  it('can log in and see server list and then log out', () => {
+  it('cannot see servers page if not logged in', () => {
+    cy.visit('/servers');
+
+    // should be redirected to the root page
+    cy.location('pathname').should('eq', '/');
+  });
+
+  it('can log in, see server list and log out', () => {
 
     cy.visit('/');
 
@@ -104,7 +111,7 @@ describe('Application user', () => {
     cy.get('tr').eq(3).should('contain', 'Germany');
   });
 
-  it("should see an error message if the API does not return a token", () => {
+  it("can see error message if API does not return a token", () => {
       
     cy.intercept(
       {
@@ -124,7 +131,7 @@ describe('Application user', () => {
     cy.get('div').should('contain', 'Response missing important data');
   });
 
-  it("should see an error message if the API does not return a server list", () => {
+  it("can see an error if the API does not return a server list", () => {
         
       cy.intercept(
         {
@@ -153,5 +160,4 @@ describe('Application user', () => {
       cy.get('div', { timeout: 10000 }).should('contain', 'Something went wrong');
 
   });
-
 })
