@@ -3,6 +3,7 @@ import {
   createColumnHelper,
   getCoreRowModel,
   flexRender,
+  getSortedRowModel,
 } from "@tanstack/react-table";
 
 type Server = {
@@ -23,15 +24,15 @@ const data: Server[] = [
   },
   {
     name: "United States",
-    distance: 300,
+    distance: 150,
   },
   {
     name: "Japan",
-    distance: 400,
+    distance: 1400,
   },
   {
     name: "Australia",
-    distance: 500,
+    distance: 50,
   },
 ];
 
@@ -49,6 +50,7 @@ const Table = () => {
     columns,
     data,
     getCoreRowModel: getCoreRowModel(),
+    getSortedRowModel: getSortedRowModel(),
   });
 
   return (
@@ -56,14 +58,29 @@ const Table = () => {
       <thead>
         {table.getHeaderGroups().map((headerGroup) => (
           <tr key={headerGroup.id}>
-            {headerGroup.headers.map((header) => (
-              <th key={header.id}>
-                {flexRender(
-                  header.column.columnDef.header,
-                  header.getContext()
-                )}
-              </th>
-            ))}
+            {headerGroup.headers.map((header) => {
+              return (
+                <th key={header.id} colSpan={header.colSpan}>
+                  <div
+                    {...{
+                      className: header.column.getCanSort()
+                        ? "cursor-pointer select-none"
+                        : "",
+                      onClick: header.column.getToggleSortingHandler(),
+                    }}
+                  >
+                    {flexRender(
+                      header.column.columnDef.header,
+                      header.getContext()
+                    )}
+                    {{
+                      asc: " 🔼",
+                      desc: " 🔽",
+                    }[header.column.getIsSorted() as string] ?? null}
+                  </div>
+                </th>
+              );
+            })}
           </tr>
         ))}
       </thead>
