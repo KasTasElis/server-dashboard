@@ -5,6 +5,7 @@ import {
   flexRender,
   getSortedRowModel,
 } from "@tanstack/react-table";
+import clsx from "clsx";
 
 type Server = {
   name: string;
@@ -54,13 +55,20 @@ const Table = () => {
   });
 
   return (
-    <table>
+    <table className="w-full max-w-full mb-7 rounded-md overflow-hidden shadow-lg">
       <thead>
         {table.getHeaderGroups().map((headerGroup) => (
-          <tr key={headerGroup.id}>
+          <tr
+            key={headerGroup.id}
+            className="text-left bg-white/70 min-w-full text-slate-700"
+          >
             {headerGroup.headers.map((header) => {
               return (
-                <th key={header.id} colSpan={header.colSpan}>
+                <th
+                  key={header.id}
+                  colSpan={header.colSpan}
+                  className="px-4 py-3 min-w-full border-r hover:bg-white/50"
+                >
                   <div
                     {...{
                       className: header.column.getCanSort()
@@ -85,10 +93,19 @@ const Table = () => {
         ))}
       </thead>
       <tbody>
-        {table.getRowModel().rows.map((row) => (
-          <tr key={row.id}>
+        {table.getRowModel().rows.map((row, index) => (
+          <tr
+            key={row.id}
+            // There should be a cleaner way to do this with tailwind selectors!
+            className={clsx(
+              "border-b border-white/20 bg-white/20 text-slate-100 hover:bg-white/50",
+              {
+                "bg-white/40": index % 2 === 0,
+              }
+            )}
+          >
             {row.getVisibleCells().map((cell) => (
-              <td key={cell.id}>
+              <td key={cell.id} className="border-r px-4 py-1 border-white/40">
                 {flexRender(cell.column.columnDef.cell, cell.getContext())}
               </td>
             ))}
