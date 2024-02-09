@@ -24,7 +24,7 @@ export type Server = {
   distance: number;
 };
 
-export const fetchServers = async (token: string): Promise<Server[]> => {
+export const fetchServers = (token: string) => async (): Promise<Server[]> => {
   const response = await fetch(`${API_BASE_URL}/servers`, {
     headers: {
       Authorization: `Bearer ${token}`,

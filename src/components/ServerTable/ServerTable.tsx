@@ -1,16 +1,6 @@
 import clsx from "clsx";
-import { SelectInput } from "..";
-import { useServerData } from "../../hooks";
-import { SortBy } from "../../utils";
 import { Server } from "../../api";
-
-const SORT_OPTIONS = [
-  { value: "none", label: "None" },
-  { value: "name-ascending", label: "Name (A-Z)" },
-  { value: "name-descending", label: "Name (Z-A)" },
-  { value: "distance-ascending", label: "Distance (Low to High)" },
-  { value: "distance-descending", label: "Distance (High to Low)" },
-];
+import { useMemo } from "react";
 
 const Message = ({ children }: { children: React.ReactNode }) => {
   return (
@@ -21,44 +11,20 @@ const Message = ({ children }: { children: React.ReactNode }) => {
 };
 
 interface ServerTableProps {
-  serverData: Server[];
+  data: Server[];
   isPending?: boolean;
-  sortBy: SortBy;
-  setSortBy?: (sortBy: SortBy) => void;
-  error?: Error;
+  error?: Error | undefined | null;
 }
 
-export const ServerTableContainer = () => {
-  const {
-    isPending,
-    error,
-    data: serverData,
-    setSortBy,
-    sortBy,
-  } = useServerData();
-
-  return (
-    <ServerTable
-      serverData={serverData}
-      isPending={isPending}
-      sortBy={sortBy}
-      setSortBy={setSortBy || undefined}
-      error={error || undefined}
-    />
-  );
-};
-
 export const ServerTable: React.FC<ServerTableProps> = ({
-  serverData,
+  data,
   isPending = false,
-  sortBy,
-  setSortBy,
   error,
 }) => {
-  const renderServerDataRows = () => {
-    return serverData.map(({ distance, name }, i) => (
+  const rows = useMemo(() => {
+    return data.map(({ distance, name }, i) => (
       <tr
-        key={i}
+        key={`${name}-${i}`}
         className={clsx(
           "border-b border-white/20 bg-white/20 text-slate-100 hover:bg-white/50",
           {
@@ -70,11 +36,7 @@ export const ServerTable: React.FC<ServerTableProps> = ({
         <td className="px-4 py-1">{distance}</td>
       </tr>
     ));
-  };
-
-  const onChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
-    if (setSortBy) setSortBy(e.target.value as SortBy);
-  };
+  }, [data]);
 
   if (isPending)
     return (
@@ -90,7 +52,7 @@ export const ServerTable: React.FC<ServerTableProps> = ({
       </Message>
     );
 
-  if (!serverData || serverData.length === 0)
+  if (!data || data.length === 0)
     return (
       <Message>
         <h1>🤦‍♂️ No data to show...</h1>
@@ -98,30 +60,18 @@ export const ServerTable: React.FC<ServerTableProps> = ({
     );
 
   return (
-    <div className="container mx-auto px-4 py-10">
-      <div className="mb-5">
-        <SelectInput
-          label="Sort by"
-          options={SORT_OPTIONS}
-          name="sortBy"
-          value={sortBy}
-          onChange={onChange}
-        />
-      </div>
-
-      <table className="w-full max-w-full mb-7 rounded-md overflow-hidden shadow-lg">
-        <thead>
-          <tr className="text-left bg-white/70 min-w-full text-slate-700">
-            <th className="px-4 py-3 min-w-full border-r hover:bg-white/50">
-              Server Name
-            </th>
-            <th className="px-4 py-3 min-w-full hover:bg-white/50">
-              Distance (km)
-            </th>
-          </tr>
-        </thead>
-        <tbody>{renderServerDataRows()}</tbody>
-      </table>
-    </div>
+    <table className="w-full max-w-full mb-7 rounded-md overflow-hidden shadow-lg">
+      <thead>
+        <tr className="text-left bg-white/70 min-w-full text-slate-700">
+          <th className="px-4 py-3 min-w-full border-r hover:bg-white/50">
+            Server Name
+          </th>
+          <th className="px-4 py-3 min-w-full hover:bg-white/50">
+            Distance (km)
+          </th>
+        </tr>
+      </thead>
+      <tbody>{rows}</tbody>
+    </table>
   );
-}
+};
