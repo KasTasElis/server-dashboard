@@ -17,7 +17,7 @@ export default defineConfig(({ command }) => {
   };
 
   if (command !== "serve") {
-    config.base = "/idea-board/";
+    config.base = "/nord-security-task/";
   }
 
   return config;

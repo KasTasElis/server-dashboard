@@ -24,6 +24,8 @@ describe('Application user', () => {
     cy.get('input[name=password]').clear();
 
     // attempt with correct credentials
+    // usually, you would store credentials in a cypress env file...
+    // since these are not sensitive, I will hardcode them...
     cy.get('input[name=username]').type("tesonet");
     cy.get('input[name=password]').type("partyanimal");
     cy.get('button[type=submit]').click();
