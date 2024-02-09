@@ -1,4 +1,4 @@
-module.exports = {
+const config = {
   env: { browser: true, es2020: true },
   extends: [
     'eslint:recommended',
@@ -11,4 +11,6 @@ module.exports = {
   rules: {
     'react-refresh/only-export-components': 'warn',
   },
-}
+};
+
+export default config;
