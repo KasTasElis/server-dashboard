@@ -42,6 +42,7 @@ describe('Application user', () => {
 
     // should not see the server list
     cy.get('table').should('not.exist');
+
   });
 
   it('can sort the server list', () => {
@@ -102,4 +103,55 @@ describe('Application user', () => {
     cy.get('tr').eq(1).should('contain', 'Lithuania');
     cy.get('tr').eq(3).should('contain', 'Germany');
   });
+
+  it("should see an error message if the API does not return a token", () => {
+      
+    cy.intercept(
+      {
+        method: 'POST', 
+        url: 'https://playground.tesonet.lt/v1/tokens',
+      },
+      { token: null } // empty response on purpose
+    ).as('getToken')
+
+    cy.visit('/');
+
+    cy.get('input[name=username]').type("user");
+    cy.get('input[name=password]').type("pass");
+    cy.get('button[type=submit]').click();
+
+    // should see an error message
+    cy.get('div').should('contain', 'Response missing important data');
+  });
+
+  it("should see an error message if the API does not return a server list", () => {
+        
+      cy.intercept(
+        {
+          method: 'GET', 
+          url: 'https://playground.tesonet.lt/v1/servers',
+        },
+        { } // empty response on purpose
+      ).as('getServers');
+  
+      cy.intercept(
+        {
+          method: 'POST', 
+          url: 'https://playground.tesonet.lt/v1/tokens',
+        },
+        { token: "mockUserToken" }
+      ).as('getToken')
+  
+      cy.visit('/');
+  
+      cy.get('input[name=username]').type("user");
+      cy.get('input[name=password]').type("pass");
+      cy.get('button[type=submit]').click();
+  
+      // should see an error message
+      // i need to increase the timeout because the error message is not displayed immediately, useQuery retries 3 times
+      cy.get('div', { timeout: 10000 }).should('contain', 'Something went wrong');
+
+  });
+
 })

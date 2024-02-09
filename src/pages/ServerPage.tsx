@@ -32,7 +32,7 @@ export const ServerPage = () => {
     if (error)
       return (
         <Message>
-          <h1>{error.message || "🤦‍♂️ Something went wrong..."}</h1>
+          <h1>{"🤦‍♂️ Something went wrong..."}</h1>
         </Message>
       );
 
