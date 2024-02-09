@@ -5,36 +5,9 @@ import {
   flexRender,
   getSortedRowModel,
 } from "@tanstack/react-table";
+import { Server } from "../api";
 
-type Server = {
-  name: string;
-  distance: number;
-};
-
-const columnHelper = createColumnHelper<Server>(); //Pass User type as the generic TData type
-
-const data: Server[] = [
-  {
-    name: "Germany",
-    distance: 100,
-  },
-  {
-    name: "France",
-    distance: 200,
-  },
-  {
-    name: "United States",
-    distance: 150,
-  },
-  {
-    name: "Japan",
-    distance: 1400,
-  },
-  {
-    name: "Australia",
-    distance: 50,
-  },
-];
+const columnHelper = createColumnHelper<Server>();
 
 const columns = [
   columnHelper.accessor("name", {
@@ -45,7 +18,11 @@ const columns = [
   }),
 ];
 
-const Table = () => {
+type TableProps = {
+  data: Server[];
+};
+
+const Table = ({ data }: TableProps) => {
   const table = useReactTable({
     columns,
     data,

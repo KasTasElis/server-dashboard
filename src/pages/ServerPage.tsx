@@ -1,46 +1,64 @@
+import { useMemo } from "react";
 import { fetchServers } from "../api";
 import {
   Header,
   PageContainer,
-  useServerTable,
-  ServerTable,
-  SelectInput,
+  Table,
 } from "../components";
 import { useAuth } from "../context";
-import { SortBy } from "../utils";
+import { useQuery } from "@tanstack/react-query";
 
-const SORT_OPTIONS = [
-  { value: "none", label: "None" },
-  { value: "name-ascending", label: "Name (A-Z)" },
-  { value: "name-descending", label: "Name (Z-A)" },
-  { value: "distance-ascending", label: "Distance (Low to High)" },
-  { value: "distance-descending", label: "Distance (High to Low)" },
-];
+const Message = ({ children }: { children: React.ReactNode }) => {
+  return (
+    <div className="text-center text-white font-light text-xl py-9">
+      {children}
+    </div>
+  );
+};
 
 export const ServerPage = () => {
   const { token } = useAuth();
   const queryFn = fetchServers(token);
-  const { data, isPending, sortBy, setSortBy, error } = useServerTable(queryFn);
+  const {
+    isPending,
+    error,
+    data
+  } = useQuery({
+    queryKey: ["serverData"],
+    queryFn,
+    refetchOnWindowFocus: false, // dont need to do it for this implementation 🤔
+  });
 
-  const onSortChange = (e: React.ChangeEvent<HTMLSelectElement>) => setSortBy(e.target.value as SortBy);
+  const renderContent = useMemo(() => {
+    if (isPending)
+      return (
+        <Message>
+          <h1 className="animate-pulse">⏳ Loading data...</h1>
+        </Message>
+      );
+
+    if (error)
+      return (
+        <Message>
+          <h1>{error.message || "🤦‍♂️ Something went wrong..."}</h1>
+        </Message>
+      );
+
+    if (!data || data.length === 0)
+      return (
+        <Message>
+          <h1>🤦‍♂️ No data to show...</h1>
+        </Message>
+      );
+
+    return <Table data={data} />;
+  }, [isPending, error, data]);
 
   return (
     <PageContainer>
       <Header />
 
-      <div className="w-96 max-w-full mx-auto px-4 mt-9">
-        <div className="mb-5">
-          <SelectInput
-            name="sortBy"
-            label="Sort By"
-            options={SORT_OPTIONS}
-            onChange={onSortChange}
-            value={sortBy}
-          />
-        </div>
-
-        <ServerTable data={data} error={error} isPending={isPending} />
-      </div>
+      <div className="w-96 max-w-full mx-auto px-4 mt-9">{renderContent}</div>
     </PageContainer>
   );
 };
