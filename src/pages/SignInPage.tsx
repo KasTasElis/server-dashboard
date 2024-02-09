@@ -1,4 +1,4 @@
-import { LoginForm, PageContainer } from "../components";
+import { LoginForm, PageContainer, Table } from "../components";
 import { useAuth } from "../context";
 
 const SignInPage = () => {
@@ -16,6 +16,10 @@ const SignInPage = () => {
             {error}
           </div>
         )}
+
+        <div className="bg-white p-5 m-5">
+          <Table />
+        </div>
 
         <LoginForm isLoading={isLoading} onSubmit={signIn} />
       </div>

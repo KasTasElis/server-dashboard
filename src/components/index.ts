@@ -4,3 +4,4 @@ export * from "./RequireAuth";
 export * from "./Header";
 export * from "./Inputs";
 export * from "./ServerTable";
+export * from "./Table";
