@@ -2,9 +2,11 @@
 
 Overall, my testing strategy was to "cast a wide net" over my code. I rely on less but higher level tests eg. integration & e2e. Gives me max return on investment in a short amount of time.
 
+If i had a bit more time i would look at testing my useAuth hook in isolation next.
+
 As the app would scale, a more robust form management and validation library would make sense. eg. react-hook-forms & ZOD.
 
-Also, setting up a solid CI&CD pipeline with husky, Cypress & Vitest would probably be the next step I would do for this repo.
+Also, setting up a solid CI&CD pipeline with husky, Cypress & Vitest with code coverage reports would probably be the next step I would do for this repo.
 
 ## Login Credentials
 
