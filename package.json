@@ -9,7 +9,7 @@
     "test:coverage": "vitest run --coverage",
     "cy:run": "cypress run",
     "cy:open": "cypress open",
-    "build": "tsc && vite build",
+    "build": "tsc && vite build --base=./",
     "cypress:open": "cypress open",
     "test:e2e": "start-server-and-test dev http-get://localhost:3000 cy:run"
   },
