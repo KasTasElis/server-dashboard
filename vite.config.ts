@@ -5,7 +5,7 @@ import react from "@vitejs/plugin-react";
 export default defineConfig(({ command }) => {
   const config = {
     plugins: [react()],
-    base: "/",
+    base: "./",
     test: {
       coverage: {
         provider: "istanbul",
@@ -17,7 +17,7 @@ export default defineConfig(({ command }) => {
   };
 
   if (command !== "serve") {
-    config.base = "/idea-board/";
+    config.base = "/nord-security-task/";
   }
 
   return config;
