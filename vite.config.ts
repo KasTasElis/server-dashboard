@@ -21,7 +21,7 @@ export default defineConfig(({ command }) => {
   };
 
   if (command !== "serve") {
-    config.base = "/nord-security-task/";
+    config.base = "/server-dashboard/";
   }
 
   return config;
